@@ -19,46 +19,48 @@ const GameDetail = ({ pathId }) => {
   };
 
   //Data
-  const { screen, game } = useSelector((state) => state.detail);
+  const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
     <>
-      <CardShadow className='shadow' onClick={exitDetailHander}>
-        <Detail layoutId={pathId}>
-          <Stats>
-            <div className='rating'>
-              <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
-              <p>Rating: {game.rating}</p>
+      {!isLoading && (
+        <CardShadow className='shadow' onClick={exitDetailHander}>
+          <Detail layoutId={pathId}>
+            <Stats>
+              <div className='rating'>
+                <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
+                <p>Rating: {game.rating}</p>
+              </div>
+              <Info>
+                <h3>Platforms</h3>
+                <Platforms>
+                  {game.platforms.map((data) => (
+                    <img
+                      alt={data.platform.name}
+                      key={data.platform.id}
+                      src={data.platform.name}
+                    ></img>
+                  ))}
+                </Platforms>
+              </Info>
+            </Stats>
+            <Media>
+              <motion.img
+                layoutId={`image ${pathId}`}
+                src={game.background_image}
+                alt={game.background_image}
+              />
+            </Media>
+            <Description>
+              <p>{game.description_raw}</p>
+            </Description>
+            <div className='gallery'>
+              {screen.results.map((screen) => (
+                <img src={screen.image} key={screen.id} alt={screen.image} />
+              ))}
             </div>
-            <Info>
-              <h3>Platforms</h3>
-              <Platforms>
-                {game.platforms.map((data) => (
-                  <img
-                    alt={data.platform.name}
-                    key={data.platform.id}
-                    src={data.platform.name}
-                  ></img>
-                ))}
-              </Platforms>
-            </Info>
-          </Stats>
-          <Media>
-            <motion.img
-              layoutId={`image ${pathId}`}
-              src={game.background_image}
-              alt={game.background_image}
-            />
-          </Media>
-          <Description>
-            <p>{game.description_raw}</p>
-          </Description>
-          <div className='gallery'>
-            {screen.results.map((screen) => (
-              <img src={screen.image} key={screen.id} alt={screen.image} />
-            ))}
-          </div>
-        </Detail>
-      </CardShadow>
+          </Detail>
+        </CardShadow>
+      )}
     </>
   );
 };
