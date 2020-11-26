@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
-import GameDetail from '../components/GameDetail';
+import React, { useEffect } from "react";
+import GameDetail from "../components/GameDetail";
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { loadGames } from '../actions/gameAction';
+import { useDispatch, useSelector } from "react-redux";
+import { loadGames } from "../actions/gamesAction";
 //Components
-import Game from '../components/Game';
+import Game from "../components/Game";
 //Styling and Animation
-import styled from 'styled-components';
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
-import { fadeIn } from '../animations';
+import styled from "styled-components";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import { fadeIn } from "../animations";
 
 const Home = () => {
-  //Get the current location
+  //get the current location
   const location = useLocation();
-  const pathId = location.pathname.split('/')[2];
+  const pathId = location.pathname.split("/")[2];
 
-  //Fetch Games
+  //FETCH GAMES
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadGames());
@@ -25,15 +25,14 @@ const Home = () => {
   const { popular, newGames, upcoming, searched } = useSelector(
     (state) => state.games
   );
-
   return (
-    <GameList variants={fadeIn} initial='hidden' animate='show'>
-      <AnimateSharedLayout type='crossfade'>
+    <GameList variants={fadeIn} initial="hidden" animate="show">
+      <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>
         {searched.length ? (
-          <div className='searched'>
+          <div className="searched">
             <h2>Searched Games</h2>
             <Games>
               {searched.map((game) => (
@@ -48,7 +47,7 @@ const Home = () => {
             </Games>
           </div>
         ) : (
-          ''
+          ""
         )}
         <h2>Upcoming Games</h2>
         <Games>

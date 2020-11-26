@@ -17,6 +17,7 @@ const Game = ({ name, released, image, id }) => {
     document.body.style.overflow = 'hidden';
     dispatch(loadDetail(id));
   };
+
   return (
     <StyledGame
       variants={popup}
@@ -47,7 +48,7 @@ const StyledGame = styled(motion.div)`
   overflow: hidden;
   img {
     width: 100%;
-    height: 60vh;
+    height: 55vh;
     object-fit: cover;
   }
 `;
